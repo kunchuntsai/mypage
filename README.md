@@ -18,12 +18,6 @@ docker-compose down
 ```
 Access the site at http://localhost:3000
 
-### Using Local Development
-Use the script to run localhost
-```bash
-./run-localhost
-```
-
 ## Development Notes
 
 ### Docker Commands
@@ -41,7 +35,6 @@ docker-compose exec web bash
 ### GitHub SSH Setup
 Before pushing to remote, use the following to check if the ssh key is set correctly
 ```bash
-ssh-add -K ~/.ssh/id_rsa_github
 ssh -T git@github.com
 ```
 
