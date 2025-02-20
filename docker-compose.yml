@@ -1,0 +1,19 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "4000:4000"
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    tty: true
+
+volumes:
+  bundle_cache:

@@ -8,14 +8,14 @@ var cp = require('child_process');
 var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync');
 
-var jekyllCommand = (/^win/.test(process.platform)) ? 'jekyll.bat' : 'jekyll';
+var jekyllCommand = (/^win/.test(process.platform)) ? 'jekyll.bat' : 'bundle';
 
 /*
  * Build the Jekyll Site
  * runs a child process in node that runs the jekyll commands
  */
 gulp.task('jekyll-build', function (done) {
-	return cp.spawn(jekyllCommand, ['build'], {stdio: 'inherit'})
+	return cp.spawn(jekyllCommand, ['exec', 'jekyll', 'build'], {stdio: 'inherit'})
 		.on('close', done);
 });
 
@@ -34,7 +34,11 @@ gulp.task('browser-sync', gulp.series(['jekyll-build'], function(done) {
 	browserSync({
 		server: {
 			baseDir: '_site'
-		}
+		},
+		host: '0.0.0.0',
+		port: 3000,
+		open: false,
+		ui: false
 	});
 	done()
 }));
@@ -47,7 +51,8 @@ gulp.task('sass', function() {
     .pipe(plumber())
     .pipe(sass())
     .pipe(csso())
-		.pipe(gulp.dest('assets/css/'))
+    .pipe(gulp.dest('assets/css/'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 /*
@@ -57,6 +62,7 @@ gulp.task('fonts', function() {
 	return gulp.src('src/fonts/**/*.{ttf,woff,woff2}')
 		.pipe(plumber())
 		.pipe(gulp.dest('assets/fonts/'))
+		.pipe(browserSync.reload({stream: true}));
 });
 
 /*
@@ -67,6 +73,7 @@ gulp.task('imagemin', function() {
 		.pipe(plumber())
 		.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
 		.pipe(gulp.dest('assets/img/'))
+		.pipe(browserSync.reload({stream: true}));
 });
 
 /**
@@ -78,6 +85,7 @@ gulp.task('js', function() {
 		.pipe(concat('main.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('assets/js/'))
+		.pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('watch', function() {

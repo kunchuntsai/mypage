@@ -1,0 +1,9 @@
+# .dockerignore
+node_modules
+_site
+.sass-cache
+.jekyll-metadata
+.git
+.gitignore
+.DS_Store
+README.md

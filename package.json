@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp"
+    "dev": "gulp",
+    "start": "gulp",
+    "build": "gulp build"
   },
   "author": "Nathan Randecker",
   "license": "ISC",
@@ -15,7 +17,8 @@
     "gulp-imagemin": "^4.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^5.1.0",
-    "gulp-uglify": "^3.0.1"
+    "gulp-uglify": "^3.0.1",
+    "jekyll": "^3.0.0-beta1"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
